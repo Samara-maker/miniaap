@@ -1,28 +1,62 @@
 import React from 'react';
-import { View, Text, FlatList } from 'react-native';
-import global from '../styles/global';
+import { View, Text, FlatList, StyleSheet } from 'react-native';
 
-const PETISCOS = [
-  { id:'1', name:'Bolinha de queijo', desc:'Crocante + alegria' },
-  { id:'2', name:'Torresmo', desc:'Aumenta a alegria +10 XP' },
-  { id:'3', name:'Batata frita', desc:'Melhor com catchup' },
-  { id:'4', name:'Calabresa', desc:'Clássico do boteco' },
-];
+export default function PetiscosScreen() {
+  const petiscos = [
+    { id: '1', nome: 'Bolinha de Queijo', desc: 'Aumenta +5 de felicidade' },
+    { id: '2', nome: 'Torresmo', desc: '+10 XP de alegria' },
+    { id: '3', nome: 'Batata Frita', desc: 'Acompanha fofoca grátis' },
+    { id: '4', nome: 'Calabresa Acebolada', desc: 'Buff +15 em carisma' },
+    { id: '5', nome: 'Pastel de Carne', desc: 'Aumenta resistência a cerveja' },
+  ];
 
-function Item({ item }) {
   return (
-    <View style={{ padding:12, borderRadius:8, backgroundColor:'#081126', marginBottom:10 }}>
-      <Text style={{ color:'#e6eef8', fontWeight:'700' }}>{item.name}</Text>
-      <Text style={{ color:'#9fb7d9' }}>{item.desc}</Text>
+    <View style={styles.container}>
+      <Text style={styles.title}>Petiscos do Boteco</Text>
+
+      <FlatList
+        data={petiscos}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
+          <View style={styles.card}>
+            <Text style={styles.cardTitle}>{item.nome}</Text>
+            <Text style={styles.cardDesc}>{item.desc}</Text>
+          </View>
+        )}
+      />
     </View>
   );
 }
 
-export default function PetiscosScreen(){
-  return (
-    <View style={global.page}>
-      <Text style={global.titleLight}>Petiscos</Text>
-      <FlatList data={PETISCOS} keyExtractor={i=>i.id} renderItem={({item})=> <Item item={item} />} style={{ marginTop:12 }} />
-    </View>
-  );
-}
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#FFF8E1',
+    padding: 20,
+  },
+  title: {
+    fontSize: 26,
+    fontWeight: 'bold',
+    marginBottom: 20,
+    color: '#8B4513',
+    textAlign: 'center',
+  },
+  card: {
+    backgroundColor: '#FFDCA8',
+    padding: 15,
+    borderRadius: 12,
+    marginBottom: 15,
+    borderWidth: 1,
+    borderColor: '#A66E2A',
+  },
+  cardTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#5A2E0F',
+  },
+  cardDesc: {
+    fontSize: 14,
+    color: '#5A2E0F',
+    marginTop: 5,
+  },
+});

@@ -1,29 +1,34 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput } from 'react-native';
-import global from '../styles/global';
+import React, { useState } from "react";
+import { View, Text, TextInput, Button } from "react-native";
+import global from "../styles/global";
 
-export default function MontarBoteco(){
-  const [nome, setNome] = useState('Bar do useEffect');
-  const [corMesa, setCorMesa] = useState('#6b3e00');
-  const [musica, setMusica] = useState('Sertanejo');
+const nomesExemplo = ["Bar do useEffect", "Zé do Estado Instável", "Boteco das Props Perdidas"];
+
+export default function MontarBoteco() {
+  const [nome, setNome] = useState(nomesExemplo[0]);
+  const [cor, setCor] = useState("#ffcc00");
+  const [musica, setMusica] = useState("Sertanejo leve");
+
+  function randomName() {
+    setNome(nomesExemplo[Math.floor(Math.random() * nomesExemplo.length)]);
+  }
 
   return (
-    <View style={global.page}>
-      <Text style={global.titleLight}>Montar Meu Boteco</Text>
+    <View style={[global.container, { backgroundColor: cor }]}>
+      <Text style={global.title}>Montar Meu Boteco</Text>
 
-      <Text style={[global.textLight, { marginTop:12 }]}>Nome do Boteco</Text>
-      <TextInput value={nome} onChangeText={setNome} style={{ backgroundColor:'#081126', color:'#fff', padding:8, borderRadius:8, marginTop:8 }} />
+      <Text>Nome do boteco</Text>
+      <TextInput value={nome} onChangeText={setNome} style={{ backgroundColor: "#fff", padding: 8, borderRadius: 8, marginVertical: 8 }} />
 
-      <Text style={[global.textLight, { marginTop:12 }]}>Cor da Mesa (hex)</Text>
-      <TextInput value={corMesa} onChangeText={setCorMesa} style={{ backgroundColor:'#081126', color:'#fff', padding:8, borderRadius:8, marginTop:8 }} />
+      <Text>Música ambiente</Text>
+      <TextInput value={musica} onChangeText={setMusica} style={{ backgroundColor: "#fff", padding: 8, borderRadius: 8, marginVertical: 8 }} />
 
-      <Text style={[global.textLight, { marginTop:12 }]}>Música</Text>
-      <TextInput value={musica} onChangeText={setMusica} style={{ backgroundColor:'#081126', color:'#fff', padding:8, borderRadius:8, marginTop:8 }} />
+      <Text>Cor das mesas (hex)</Text>
+      <TextInput value={cor} onChangeText={setCor} style={{ backgroundColor: "#fff", padding: 8, borderRadius: 8, marginVertical: 8 }} />
 
-      <View style={{ marginTop:20, padding:12, borderRadius:8, backgroundColor: corMesa }}>
-        <Text style={{ fontSize:20, fontWeight:'700' }}>{nome}</Text>
-        <Text>🎵 {musica}</Text>
-      </View>
+      <Button title="Gerar nome aleatório" onPress={randomName} />
+      <View style={{ height: 8 }} />
+      <Text style={{ marginTop: 12 }}>Preview: <Text style={{ fontWeight: "700" }}>{nome}</Text> — {musica}</Text>
     </View>
   );
 }

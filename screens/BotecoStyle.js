@@ -1,37 +1,42 @@
-import React, { useState } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
-import global from '../styles/global';
+import React, { useState } from "react";
+import { View, Text, TouchableOpacity } from "react-native";
+import global from "../styles/global";
 
-const INGREDIENTS = [ { id:'1', name:'Cerveja', price:8 }, { id:'2', name:'Bolinha de queijo', price:12 }, { id:'3', name:'Batata frita', price:15 } ];
+export default function BotecoStyle() {
+  const [tema, setTema] = useState("mesa1");
 
-export default function BotecoStyle(){
-  const [theme, setTheme] = useState('mesa1');
-  const themes = {
-    mesa1: { bg:'#fff8e1', card:'#6b3e00', text:'#2b1b00' },
-    mesa2: { bg:'#1a0b0b', card:'#330000', text:'#fff' }
+  const temas = {
+    mesa1: { backgroundColor: "#FFF7E6", borderColor: "#8B5E3C", color: "#8B5E3C" }, // amarelo + marrom
+    mesa2: { backgroundColor: "#2b0000", borderColor: "#8b0000", color: "#fff" }, // vermelho + preto
   };
-  const t = themes[theme];
+
+  const pratos = [
+    { nome: "Porção de Torresmo", preco: 18 },
+    { nome: "Batata Frita", preco: 12 },
+    { nome: "Calabresa Acebolada", preco: 20 },
+  ];
+
+  const styleTema = temas[tema];
 
   return (
-    <View style={[global.page, { backgroundColor: t.bg }]}>
-      <Text style={[{ color: t.text, fontSize:22, fontWeight:'700' }]}>Menu do Boteco</Text>
-      <View style={{ flexDirection:'row', marginTop:12 }}>
-        <TouchableOpacity onPress={() => setTheme('mesa1')} style={{ marginRight:10, padding:8, backgroundColor:t.card }}>
-          <Text style={{ color:t.text }}>🍺 Mesa 01</Text>
+    <View style={[global.container, { backgroundColor: styleTema.backgroundColor }]}>
+      <Text style={[global.title, { color: styleTema.color }]}>Menu do Boteco</Text>
+
+      <View style={{ flexDirection: "row", marginBottom: 12 }}>
+        <TouchableOpacity onPress={() => setTema("mesa1")} style={{ marginRight: 8 }}>
+          <Text style={{ padding: 8, borderWidth: 1, borderColor: styleTema.borderColor, color: styleTema.color }}>🍺 Tema Mesa 01</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => setTheme('mesa2')} style={{ padding:8, backgroundColor:t.card }}>
-          <Text style={{ color:t.text }}>🍻 Mesa 02</Text>
+        <TouchableOpacity onPress={() => setTema("mesa2")}>
+          <Text style={{ padding: 8, borderWidth: 1, borderColor: styleTema.borderColor, color: styleTema.color }}>🍻 Tema Mesa 02</Text>
         </TouchableOpacity>
       </View>
 
-      <View style={{ marginTop:16 }}>
-        {INGREDIENTS.map(i => (
-          <View key={i.id} style={{ flexDirection:'row', justifyContent:'space-between', padding:10, backgroundColor:'#fff', marginBottom:8 }}>
-            <Text>{i.name}</Text>
-            <Text>R$ {i.price}</Text>
-          </View>
-        ))}
-      </View>
+      {pratos.map(p => (
+        <View key={p.nome} style={{ padding: 12, backgroundColor: "#fff", marginBottom: 8, borderRadius: 8 }}>
+          <Text style={{ fontWeight: "700" }}>{p.nome}</Text>
+          <Text style={{ color: "#666" }}>R$ {p.preco.toFixed(2)}</Text>
+        </View>
+      ))}
     </View>
   );
 }

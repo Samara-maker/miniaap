@@ -1,52 +1,19 @@
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import React from "react";
+import { View, Text } from "react-native";
+import global from "../styles/global";
 
-export default function JSXLabScreen() {
+export default function BotecoJSX() {
+  const element = <Text>JSX é como escrever o cardápio dentro do JavaScript.</Text>;
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>🍻 Boteco do JSX</Text>
-
-      <Text style={styles.text}>
-        JSX é como o cardápio do boteco: você descreve o que deve aparecer na mesa.
-      </Text>
-
-      <Text style={[styles.card, styles.text]}>
-        {'<'}View{'> ... </'}View{'>'}  
-        {'<'}Text{'>Cervejinha gelada!</'}Text{'>'}
-      </Text>
-
-      <Text style={styles.text}>
-        Ele deixa você escrever layouts de forma simples, misturando lógica com UI.
-      </Text>
-
-      <View style={styles.example}>
-        <Text style={styles.exampleText}>Exemplo renderizado:</Text>
-        <View style={styles.box}>
-          <Text style={styles.boxText}>🍺 Uma gelada bem servida</Text>
-        </View>
+    <View style={global.container}>
+      <Text style={global.title}>Boteco do JSX</Text>
+      <View style={{ padding: 12, backgroundColor: "#fff", borderRadius: 8 }}>
+        {element}
+        <Text style={{ marginTop: 8 }}>
+          Exemplo: <Text style={{ fontWeight: "700" }}>{`const elemento = <Text>Olá</Text>`}</Text>
+        </Text>
       </View>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: { flex: 1, padding: 20, backgroundColor: '#0f1724' },
-  title: { color: '#ffd166', fontSize: 26, fontWeight: '700', marginBottom: 12 },
-  text: { color: '#ffffff', fontSize: 16, marginVertical: 6 },
-  card: {
-    backgroundColor: '#1f2937',
-    padding: 12,
-    borderRadius: 10,
-    marginVertical: 10,
-    fontFamily: 'monospace',
-  },
-  example: { marginTop: 20 },
-  exampleText: { color: '#cbd5e1', marginBottom: 6 },
-  box: {
-    padding: 14,
-    backgroundColor: '#172554',
-    borderRadius: 10,
-    alignItems: 'center',
-  },
-  boxText: { color: '#e0f2fe', fontSize: 18 },
-});

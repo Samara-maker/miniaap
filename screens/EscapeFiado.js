@@ -1,29 +1,31 @@
-import React, { useRef } from 'react';
-import { View, Text, Animated, TouchableOpacity } from 'react-native';
-import global from '../styles/global';
+import React, { useRef, useEffect } from "react";
+import { View, Animated, Text, Button } from "react-native";
+import global from "../styles/global";
 
-export default function EscapeFiado(){
+export default function EscapeFiado() {
   const x = useRef(new Animated.Value(0)).current;
 
-  function run(){
+  function runAnimation() {
     x.setValue(0);
-    Animated.timing(x, { toValue: 300, duration: 1200, useNativeDriver: true }).start();
+    Animated.timing(x, {
+      toValue: 300,
+      duration: 2000,
+      useNativeDriver: true,
+    }).start();
   }
 
   return (
-    <View style={global.page}>
-      <Text style={global.titleLight}>Escape do Fiado</Text>
-      <Text style={[global.textLight, { marginTop:8 }]}>Ajude o personagem a fugir do dono do bar!</Text>
+    <View style={global.container}>
+      <Text style={global.title}>Escape do Fiado — Minijogo</Text>
 
-      <View style={{ marginTop:20, height:120, overflow:'hidden' }}>
-        <Animated.View style={{ transform:[{ translateX: x }], width:80, height:80, backgroundColor:'#0ea5e9', borderRadius:40, justifyContent:'center', alignItems:'center' }}>
-          <Text style={{ fontSize:28 }}>🏃‍♂️</Text>
+      <View style={{ height: 200, overflow: "hidden", backgroundColor: "#fff", borderRadius: 8, marginVertical: 12 }}>
+        <Animated.View style={{ transform: [{ translateX: x }], padding: 12 }}>
+          <Text style={{ fontSize: 18 }}>🏃‍♂️ Corredor fugindo do fiado</Text>
         </Animated.View>
       </View>
 
-      <TouchableOpacity onPress={run} style={{ marginTop:20, backgroundColor:'#0ea5e9', padding:10, borderRadius:8 }}>
-        <Text style={{ fontWeight:'700' }}>Correr</Text>
-      </TouchableOpacity>
+      <Button title="Fugir!" onPress={runAnimation} />
+      <Text style={{ marginTop: 12 }}>Use Animated + timing + useRef + interpolação para melhorar.</Text>
     </View>
   );
 }

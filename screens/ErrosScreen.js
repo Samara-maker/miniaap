@@ -1,25 +1,23 @@
-import React from 'react';
-import { View, Text } from 'react-native';
-import global from '../styles/global';
+import React from "react";
+import { View, Text, ScrollView } from "react-native";
+import global from "../styles/global";
 
 const ERROS = [
-  { err:'undefined is not an object', explain:'Isso é igual pedir cerveja sem pagar. O React não deixa.' },
-  { err:'Hooks must be called inside a function component', explain:'Você tentou chamar hook no lugar errado — chame dentro do componente.' },
-  { err:'Invariant violation: Element type is invalid', explain:'Normalmente você esqueceu de exportar o componente.' },
+  { err: "undefined is not an object", exp: "Isso é igual pedir cerveja sem pagar. O React não deixa." },
+  { err: "Hooks must be called inside a function component", exp: "Você tentou pedir pro garçom errado." },
+  { err: "Invariant Violation: Element type is invalid", exp: "Elemento inválido — tipo pedir uma janta que não existe." },
 ];
 
-export default function ErrosScreen(){
+export default function ErrosScreen() {
   return (
-    <View style={global.page}>
-      <Text style={global.titleLight}>Erros do Boteco</Text>
-      <View style={{ marginTop:12 }}>
-        {ERROS.map((e,i) => (
-          <View key={i} style={{ marginBottom:12, padding:12, backgroundColor:'#081126', borderRadius:8 }}>
-            <Text style={{ color:'#ff6b6b', fontWeight:'700' }}>{e.err}</Text>
-            <Text style={{ color:'#cfe6ff', marginTop:6 }}>{e.explain}</Text>
-          </View>
-        ))}
-      </View>
-    </View>
+    <ScrollView style={global.container}>
+      <Text style={global.title}>Erros do Boteco (debug)</Text>
+      {ERROS.map(e => (
+        <View key={e.err} style={{ padding: 12, backgroundColor: "#fff", borderRadius: 8, marginBottom: 8 }}>
+          <Text style={{ fontWeight: "700" }}>{e.err}</Text>
+          <Text style={{ marginTop: 6 }}>{e.exp}</Text>
+        </View>
+      ))}
+    </ScrollView>
   );
 }

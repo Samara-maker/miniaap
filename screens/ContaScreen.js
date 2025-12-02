@@ -1,41 +1,52 @@
-import React, { useState } from 'react';
-import { View, Text, ScrollView } from 'react-native';
-import ItemConta from '../components/ItemConta';
-import global from '../styles/global';
+import React, { useState } from "react";
+import { View, Text, Button, ScrollView } from "react-native";
+import ItemConta from "../components/ItemConta";
+import global from "../styles/global";
 
-const START = [
-  { id:'1', nome:'Cerveja', preco:8, quantidade:0 },
-  { id:'2', nome:'Bolinha de queijo', preco:12, quantidade:0 },
-  { id:'3', nome:'Batata frita', preco:15, quantidade:0 },
+const CATALOG = [
+  { id: 1, nome: "Bolinha de queijo", preco: 8 },
+  { id: 2, nome: "Torresmo", preco: 12 },
+  { id: 3, nome: "Heineken", preco: 14 },
 ];
 
-export default function ContaScreen(){
-  const [items, setItems] = useState(START);
+export default function ContaScreen() {
+  const [itens, setItens] = useState([]);
 
-  function update(id, delta){
-    setItems(items.map(i => i.id === id ? {...i, quantidade: Math.max(0, i.quantidade + delta)} : i ));
+  function addItem(prod) {
+    // se já existir, incrementa
+    setItens(prev => {
+      const found = prev.find(p => p.id === prod.id);
+      if (found) {
+        return prev.map(p => p.id === prod.id ? { ...p, qtd: p.qtd + 1 } : p);
+      }
+      return [...prev, { ...prod, qtd: 1 }];
+    });
   }
 
-  const total = items.reduce((s,i)=> s + i.preco * i.quantidade, 0);
+  const total = itens.reduce((s, it) => s + it.preco * it.qtd, 0);
 
   return (
-    <ScrollView style={global.page}>
-      <Text style={global.titleLight}>Simulador de Conta</Text>
-      <View style={{ marginTop:12 }}>
-        {items.map(i => (
-          <ItemConta
-            key={i.id}
-            nome={i.nome}
-            preco={i.preco}
-            quantidade={i.quantidade}
-            onPlus={() => update(i.id, +1)}
-            onMinus={() => update(i.id, -1)}
-          />
+    <ScrollView style={global.container}>
+      <Text style={global.title}>Simulador de Conta</Text>
+
+      {CATALOG.map(p => (
+        <View key={p.id} style={{ marginBottom: 8 }}>
+          <Text style={{ fontWeight: "700" }}>{p.nome} — R$ {p.preco.toFixed(2)}</Text>
+          <Button title="Adicionar" onPress={() => addItem(p)} />
+        </View>
+      ))}
+
+      <View style={{ marginTop: 16 }}>
+        <Text style={{ fontWeight: "700", marginBottom: 8 }}>Itens no pedido:</Text>
+        {itens.length === 0 ? <Text>Nenhum item</Text> : itens.map(it => (
+          <ItemConta key={it.id} nome={it.nome} preco={it.preco} qtd={it.qtd} />
         ))}
       </View>
 
-      <Text style={{ color:'#cfe6ff', marginTop:12 }}>Total: R$ {total}</Text>
-      {total > 80 && <Text style={{ color:'#ffcc00', marginTop:8 }}>Se deu mais de R$ 80, é porque alguém pediu Heineken.</Text>}
+      <View style={{ marginTop: 12 }}>
+        <Text style={{ fontSize: 18 }}>Total: R$ {total.toFixed(2)}</Text>
+        {total > 80 && <Text style={{ marginTop: 8, fontStyle: "italic" }}>Se deu mais de R$ 80, é porque alguém pediu Heineken.</Text>}
+      </View>
     </ScrollView>
   );
 }

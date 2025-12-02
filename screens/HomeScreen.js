@@ -1,28 +1,37 @@
-import React from 'react';
-import { ScrollView, View, Text, TouchableOpacity } from 'react-native';
-import Card from '../components/Card';
-import global from '../styles/global';
+import React from "react";
+import { View, Text, Button, ScrollView } from "react-native";
+import global from "../styles/global";
 
-export default function HomeScreen({ navigation }){
+export default function HomeScreen({ navigation }) {
   return (
-    <ScrollView style={global.page} contentContainerStyle={{ paddingBottom:40 }}>
-      <View style={{ marginBottom:12 }}>
-        <Text style={global.titleLight}>React Labs — Boteco</Text>
-        <Text style={[global.textLight, { marginTop:6 }]}>Aprenda React Native com humor e exemplos práticos.</Text>
-      </View>
+    <ScrollView style={global.container}>
+      <Text style={global.title}>App React Native de Boteco 🍻</Text>
 
-      <TouchableOpacity onPress={() => navigation.navigate('BotecoUseState')}><Card title="Boteco do useState" subtitle="Contador de cerveja — aprenda useState" /></TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.navigate('Petiscos')}><Card title="Lista de Petiscos" subtitle="FlatList e renderItem" /></TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.navigate('Garcom')}><Card title="Garçom Online" subtitle="fetch(), loading e useEffect" /></TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.navigate('BotecoStyle')}><Card title="Menu do Boteco" subtitle="Flexbox e temas" /></TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.navigate('Conta')}><Card title="Simulador de Conta" subtitle="props e composição" /></TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.navigate('EscapeFiado')}><Card title="Escape do Fiado" subtitle="Animated + useRef" /></TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.navigate('MontarBoteco')}><Card title="Montar Meu Boteco" subtitle="Personalize tudo ao vivo" /></TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.navigate('Erros')}><Card title="Erros do Boteco" subtitle="Debug com humor" /></TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.navigate('Piadas')}><Card title="Piadas de Dev" subtitle="API de piadas" /></TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.navigate('Quiz')}><Card title="Quiz — Dev ou Garçom?" subtitle="Teste seus conhecimentos" /></TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.navigate('MemoryGame')}><Card title="Lab — Memory Game" subtitle="Jogo da memória com 8 cartas" /></TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.navigate('Inspect')}><Card title="Modo Raio-X" subtitle="Ferramenta educativa" /></TouchableOpacity>
+      <Text style={{ marginBottom: 8 }}>
+        Navegue pelas abas para aprender conceitos do React Native com humor de bar.
+      </Text>
+
+      <Button title="Boteco do useState" onPress={() => navigation.navigate("useState")} />
+      <View style={{ height: 8 }} />
+      <Button title="Boteco do JSX" onPress={() => navigation.navigate("JSX")} />
+      <View style={{ height: 8 }} />
+      <Button title="Boteco da Estilização" onPress={() => navigation.navigate("Estilos")} />
+      <View style={{ height: 8 }} />
+      <Button title="Garçom Online (API)" onPress={() => navigation.navigate("Garcom")} />
+      <View style={{ height: 8 }} />
+      <Button title="Petiscos (FlatList)" onPress={() => navigation.navigate("Petiscos")} />
+      <View style={{ height: 8 }} />
+      <Button title="Simulador de Conta" onPress={() => navigation.navigate("Conta")} />
+      <View style={{ height: 8 }} />
+      <Button title="Escape do Fiado (Animated)" onPress={() => navigation.navigate("Escape")} />
+      <View style={{ height: 8 }} />
+      <Button title="Erros do Boteco (debug)" onPress={() => navigation.navigate("Erros")} />
+      <View style={{ height: 8 }} />
+      <Button title="Montar Meu Boteco" onPress={() => navigation.navigate("Montar")} />
+      <View style={{ height: 8 }} />
+      <Button title="Piadas do Boteco" onPress={() => navigation.navigate("Piadas")} />
+      <View style={{ height: 8 }} />
+      <Button title="Quiz — Dev ou Garçom?" onPress={() => navigation.navigate("Quiz")} />
     </ScrollView>
   );
 }

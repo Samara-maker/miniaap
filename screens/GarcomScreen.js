@@ -1,36 +1,38 @@
-import React, { useState } from 'react';
-import { View, Text, Button, ActivityIndicator } from 'react-native';
-import global from '../styles/global';
+import React, { useState } from "react";
+import { View, Text, Button, ActivityIndicator } from "react-native";
+import global from "../styles/global";
+import { fetchOrder } from "../api/api";
 
-export default function GarcomScreen(){
-  const [loading,setLoading] = useState(false);
-  const [pedido,setPedido] = useState(null);
+export default function GarcomScreen() {
+  const [loading, setLoading] = useState(false);
+  const [pedido, setPedido] = useState(null);
+  const [msg, setMsg] = useState("");
 
-  async function chamarGarcom(){
+  async function chamarGarcom() {
     setLoading(true);
-    setPedido(null);
-    try{
-      const res = await fetch('https://jsonplaceholder.typicode.com/posts/1');
-      const json = await res.json();
-      setPedido({ title: json.title, body: json.body });
-    }catch(e){
-      setPedido({ title:'Erro', body:'O garçom sumiu.' });
-    }finally{ setLoading(false); }
+    setMsg("Calma chefia, o garçom foi lá pegar os dados!");
+    try {
+      const data = await fetchOrder();
+      // jsonplaceholder post tem title e body
+      setPedido({ nome: data.title, descricao: data.body });
+    } catch (e) {
+      setMsg("Ops, o garçom se perdeu no caminho.");
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
-    <View style={global.page}>
-      <Text style={global.titleLight}>Garçom Online</Text>
-      <Text style={[global.textLight, { marginTop:8 }]}>Clique em “Chamar o Garçom”</Text>
-      <View style={{ marginTop:12 }}>
-        <Button title="Chamar o Garçom" onPress={chamarGarcom} />
-      </View>
-      {loading && <ActivityIndicator style={{ marginTop:12 }} />}
+    <View style={global.container}>
+      <Text style={global.title}>Garçom Online — APIs</Text>
+      <Button title="Chamar o Garçom" onPress={chamarGarcom} />
+      <View style={{ height: 12 }} />
+      {loading && <ActivityIndicator size="large" />}
+      {msg ? <Text style={{ marginTop: 12 }}>{msg}</Text> : null}
       {pedido && (
-        <View style={{ marginTop:12, padding:12, backgroundColor:'#081126', borderRadius:8 }}>
-          <Text style={{ color:'#e6eef8', fontWeight:'700' }}>{pedido.title}</Text>
-          <Text style={{ color:'#9fb7d9', marginTop:6 }}>{pedido.body}</Text>
-          <Text style={{ color:'#cfe6ff', marginTop:8 }}>Calma chefia, o garçom foi lá pegar os dados!</Text>
+        <View style={{ marginTop: 12, padding: 12, backgroundColor: "#fff", borderRadius: 8 }}>
+          <Text style={{ fontWeight: "700" }}>{pedido.nome}</Text>
+          <Text style={{ marginTop: 6 }}>{pedido.descricao}</Text>
         </View>
       )}
     </View>
