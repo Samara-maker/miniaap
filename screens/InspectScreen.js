@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView } from 'react-native';
+import { ScrollView, View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import global from '../styles/global';
 
 export default function InspectScreen() {
   const [inputValue, setInputValue] = useState('');
@@ -22,13 +23,14 @@ export default function InspectScreen() {
   }
 
   return (
-    <ScrollView style={styles.container}>
-      <Text style={styles.title}>🔍 Inspect Tool</Text>
-      <Text style={styles.subtitle}>Digite algo e veja ele ser analisado em tempo real!</Text>
+    <ScrollView style={global.page}>
+      <Text style={global.titleLight}>🔍 Inspect Tool</Text>
+      <Text style={[global.textLight, { marginTop:6 }]}>Digite algo e veja ele ser analisado em tempo real!</Text>
 
       <TextInput
         style={styles.input}
         placeholder="Digite qualquer texto..."
+        placeholderTextColor="#9fb7d9"
         value={inputValue}
         onChangeText={setInputValue}
       />
@@ -58,76 +60,26 @@ export default function InspectScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20,
-    backgroundColor: '#0d0d0d',
-  },
-
-  title: {
-    fontSize: 30,
-    fontWeight: 'bold',
-    color: '#00eaff',
-    textAlign: 'center',
-    marginBottom: 10,
-  },
-
-  subtitle: {
-    color: '#ccc',
-    fontSize: 16,
-    textAlign: 'center',
-    marginBottom: 30,
-  },
-
   input: {
     backgroundColor: '#1a1a1a',
     color: '#fff',
-    padding: 15,
+    padding: 12,
     borderRadius: 10,
     fontSize: 16,
     borderWidth: 1,
     borderColor: '#333',
-    marginBottom: 20,
+    marginTop: 16,
   },
-
   button: {
     backgroundColor: '#00eaff',
-    padding: 15,
+    padding: 12,
     borderRadius: 10,
     alignItems: 'center',
-    marginBottom: 25,
+    marginTop: 12,
   },
-
-  buttonText: {
-    color: '#000',
-    fontWeight: 'bold',
-    fontSize: 18,
-  },
-
-  resultBox: {
-    backgroundColor: '#1c1c1c',
-    padding: 20,
-    borderRadius: 12,
-    borderWidth: 1,
-    borderColor: '#333',
-  },
-
-  resultTitle: {
-    color: '#00eaff',
-    fontSize: 22,
-    fontWeight: 'bold',
-    marginBottom: 10,
-  },
-
-  resultItem: {
-    color: '#fff',
-    marginBottom: 8,
-    fontSize: 16,
-  },
-
-  warning: {
-    color: '#ff6666',
-    fontSize: 16,
-    textAlign: 'center',
-  }
+  buttonText: { color: '#000', fontWeight: '700' },
+  resultBox: { backgroundColor: '#1c1c1c', padding: 14, borderRadius: 10, marginTop: 14 },
+  resultTitle: { color: '#00eaff', fontSize: 18, fontWeight: '700', marginBottom: 8 },
+  resultItem: { color: '#fff', marginBottom: 6 },
+  warning: { color: '#ff6666' }
 });

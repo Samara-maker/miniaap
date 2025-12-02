@@ -1,40 +1,27 @@
-import { View, Text, Button, StyleSheet } from 'react-native';
-import { useState } from 'react';
+import React, { useState } from 'react';
+import { View, Text, Button } from 'react-native';
+import global from '../styles/global';
 
-export default function QuizScreen() {
-  const questions = [
-    { q: "O que é JSX?", a: "Uma forma de escrever estrutura de interface dentro do JS." },
-    { q: "Para que serve useState?", a: "Criar estados reativos em componentes." },
-  ];
+const Q = [
+  { q:'O que é uma prop?', a:'Um valor passado para um componente.' },
+  { q:'Para que serve useState?', a:'Gerenciar estado local de um componente.' }
+];
 
-  const [index, setIndex] = useState(0);
-  const [showAnswer, setShowAnswer] = useState(false);
+export default function QuizScreen(){
+  const [i, setI] = useState(0);
+  const [show, setShow] = useState(false);
+  function next(){ setI((i+1)%Q.length); setShow(false); }
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Quiz React Native</Text>
-
-      <Text style={styles.question}>{questions[index].q}</Text>
-
-      {showAnswer && (
-        <Text style={styles.answer}>{questions[index].a}</Text>
-      )}
-
-      <Button title="Mostrar resposta" onPress={() => setShowAnswer(true)} />
-      <Button
-        title="Próxima"
-        onPress={() => {
-          setIndex((index + 1) % questions.length);
-          setShowAnswer(false);
-        }}
-      />
+    <View style={global.page}>
+      <Text style={global.titleLight}>Quiz — Dev ou Garçom?</Text>
+      <Text style={[global.textLight, { marginTop:12 }]}>{Q[i].q}</Text>
+      {show && <Text style={{ color:'#9fb7d9', marginTop:12 }}>{Q[i].a}</Text>}
+      <View style={{ marginTop:12 }}>
+        <Button title="Mostrar resposta" onPress={() => setShow(true)} />
+        <View style={{ height:8 }} />
+        <Button title="Próxima" onPress={next} />
+      </View>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: { flex: 1, padding: 20, justifyContent: "center" },
-  title: { fontSize: 24, fontWeight: "bold" },
-  question: { marginVertical: 20, fontSize: 18 },
-  answer: { marginVertical: 20, fontSize: 16, color: "green" },
-});

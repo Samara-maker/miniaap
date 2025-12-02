@@ -1,11 +1,10 @@
-import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import AppRoutes from './navigation/AppRoutes';
+import { NavigationContainer } from "@react-navigation/native";
+import BotecoNav from "./src/navigation/BotecoNav";
 
 export default function App() {
   return (
     <NavigationContainer>
-      <AppRoutes />
+      <BotecoNav />
     </NavigationContainer>
   );
 }
