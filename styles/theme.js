@@ -1,0 +1,35 @@
+export const THEMES = {
+  mesa: {
+    primary: '#8B4513',
+    accent: '#C68642',
+    text: '#222',
+    muted: '#777',
+    button: '#C68642',
+    border: '#D8B384',
+    appBg: '#FFF9F2',
+    tabBarBg: '#F2E6DA',
+    cardBg: '#FFF',
+  },
+  noite: {
+    primary: '#F8E71C',
+    accent: '#F5A623',
+    text: '#EEE',
+    muted: '#999',
+    button: '#F5A623',
+    border: '#444',
+    appBg: '#0B1020',
+    tabBarBg: '#07070A',
+    cardBg: '#0F1724',
+  },
+  verde: {
+    primary: '#2F9E44',
+    accent: '#97E6A8',
+    text: '#072A0F',
+    muted: '#55765B',
+    button: '#2F9E44',
+    border: '#BEEBC9',
+    appBg: '#F3FFF6',
+    tabBarBg: '#E8F9EC',
+    cardBg: '#FFFFFF',
+  }
+};
