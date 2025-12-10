@@ -1,11 +1,12 @@
-export async function fetchOrder() {
-  // usa jsonplaceholder para simular pedidos
-  const res = await fetch("https://jsonplaceholder.typicode.com/posts/1");
-  return res.json();
-}
-
 export async function fetchJoke() {
-  // JokeAPI (programming or general). Usamos v2
-  const res = await fetch("https://v2.jokeapi.dev/joke/Programming?type=single");
-  return res.json();
+  const res = await fetch('https://api.chucknorris.io/jokes/random');
+
+  if (!res.ok) {
+    throw new Error('Erro na API');
+  }
+
+  const data = await res.json();
+
+  // tradução simples (didática)
+  return `💡 Piada recebida da API:\n${data.value}`;
 }
