@@ -4,33 +4,35 @@ import { styles } from '../styles/styles';
 
 export default function CallWaiter({ theme, modoAprendiz }) {
 
-  // 🔹 Estados principais da requisição
+  // 🧠 Estados da API
   const [loading, setLoading] = useState(false); // garçom foi buscar?
   const [data, setData] = useState(null);        // pedido chegou?
   const [error, setError] = useState(null);      // deu ruim?
 
-  // 🍽️ Função que simula o garçom indo buscar dados
+  // 🍽️ Função que consome a API
   async function fetchData() {
     setLoading(true);
     setError(null);
     setData(null);
 
     try {
-      // ⏱️ simulando tempo da cozinha
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      // ⏱️ tempo da cozinha (simulação)
+      await new Promise(resolve => setTimeout(resolve, 1200));
 
-      // 🌐 chamada da API
-      const response = await fetch('https://jsonplaceholder.typicode.com/posts/1');
+      // 🌐 API de testes (dados simulados)
+      const response = await fetch(
+        'https://jsonplaceholder.typicode.com/posts/1'
+      );
 
       if (!response.ok) {
-        throw new Error('O garçom tropeçou no caminho 😵');
+        throw new Error('O garçom se perdeu no caminho 😵');
       }
 
       const json = await response.json();
       setData(json);
 
     } catch (err) {
-      setError(err.message);
+      setError(err.message || 'Erro inesperado 🍺');
     } finally {
       setLoading(false);
     }
@@ -44,10 +46,10 @@ export default function CallWaiter({ theme, modoAprendiz }) {
       </Text>
 
       <Text style={[styles.paragraph, { color: theme.text }]}>
-        Exemplo real de consumo de API no React Native.
+        Exemplo prático de consumo de API no React Native.
       </Text>
 
-      {/* 📚 MODO APRENDIZ — EXPLICAÇÃO CLARA */}
+      {/* 📚 MODO APRENDIZ */}
       {modoAprendiz && (
         <View
           style={{
@@ -62,20 +64,16 @@ export default function CallWaiter({ theme, modoAprendiz }) {
           <Text style={{ fontSize: 13, color: theme.text, lineHeight: 18 }}>
             🧠 <Text style={{ fontWeight: 'bold' }}>O que essa tela ensina?</Text>
 
-            {'\n\n'}1️⃣ <Text style={{ fontWeight: 'bold' }}>API</Text>  
-            É um lugar na internet que entrega dados para o app.
+            {'\n\n'}✅ <Text style={{ fontWeight: 'bold' }}>API</Text>  
+            O app busca dados fora dele, pela internet.
 
-            {'\n\n'}2️⃣ <Text style={{ fontWeight: 'bold' }}>loading</Text>  
-            Fica `true` enquanto o garçom está buscando os dados.
+            {'\n\n'}✅ <Text style={{ fontWeight: 'bold' }}>Estados</Text>  
+            loading → esperando  
+            {'\n'}data → sucesso  
+            {'\n'}error → erro
 
-            {'\n\n'}3️⃣ <Text style={{ fontWeight: 'bold' }}>data</Text>  
-            Guarda a resposta quando o pedido chega com sucesso.
-
-            {'\n\n'}4️⃣ <Text style={{ fontWeight: 'bold' }}>error</Text>  
-            Mostra um erro se algo der errado no caminho.
-
-            {'\n\n'}✅ <Text style={{ fontWeight: 'bold' }}>Resumo:</Text>  
-            Apps reais sempre lidam com espera, sucesso e erro.
+            {'\n\n'}🍺 <Text style={{ fontWeight: 'bold' }}>No boteco:</Text>  
+            Às vezes o garçom demora. Às vezes a cozinha erra.
           </Text>
         </View>
       )}
@@ -85,7 +83,9 @@ export default function CallWaiter({ theme, modoAprendiz }) {
         style={[styles.actionBtn, { backgroundColor: theme.button }]}
         onPress={fetchData}
       >
-        <Text style={styles.actionBtnText}>Chamar o Garçom</Text>
+        <Text style={styles.actionBtnText}>
+          Chamar o Garçom
+        </Text>
       </TouchableOpacity>
 
       {/* ⏳ LOADING */}
@@ -93,7 +93,7 @@ export default function CallWaiter({ theme, modoAprendiz }) {
         <View style={{ marginTop: 16 }}>
           <ActivityIndicator size="large" color={theme.primary} />
           <Text style={[styles.paragraph, { color: theme.text }]}>
-            O garçom foi até a cozinha...
+            🏃‍♂️ O garçom foi até a cozinha...
           </Text>
         </View>
       )}
@@ -101,18 +101,30 @@ export default function CallWaiter({ theme, modoAprendiz }) {
       {/* ❌ ERRO */}
       {error && (
         <Text style={[styles.errorText, { color: 'crimson', marginTop: 16 }]}>
-          Erro: {error}
+          ❌ {error}
         </Text>
       )}
 
       {/* ✅ SUCESSO */}
       {data && (
-        <View style={[styles.apiCard, { borderColor: theme.border, marginTop: 16 }]}>
+        <View
+          style={[
+            styles.apiCard,
+            { borderColor: theme.border, marginTop: 16 },
+          ]}
+        >
           <Text style={[styles.petiscoName, { color: theme.primary }]}>
-            Pedido recebido:
+            🍽️ Pedido recebido!
           </Text>
+
           <Text style={[styles.petiscoDesc, { color: theme.text }]}>
             {data.title}
+          </Text>
+
+          {/* ⚠️ AVISO IMPORTANTE */}
+          <Text style={{ fontSize: 12, color: theme.text, opacity: 0.7, marginTop: 6 }}>
+            ⚠️ Texto vindo de uma API de testes (dados simulados).
+            {'\n'}O foco aqui é aprender a usar APIs, não o conteúdo.
           </Text>
         </View>
       )}
