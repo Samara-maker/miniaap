@@ -29,7 +29,6 @@ export default function EscapeGame({ theme, modoAprendiz }) {
   }, [running, speed]);
 
   function acelerar() {
-    // didático: limita no modo aprendiz
     if (modoAprendiz && speed >= 2) return;
     setSpeed(s => s + 0.5);
   }
@@ -45,7 +44,6 @@ export default function EscapeGame({ theme, modoAprendiz }) {
         Exemplo de animação e controle de estado no React Native.
       </Text>
 
-      {/* 📚 MODO APRENDIZ — IGUAL AO CALL WAITER */}
       {modoAprendiz && (
         <View
           style={{
@@ -79,7 +77,7 @@ export default function EscapeGame({ theme, modoAprendiz }) {
           </Text>
         </View>
       )}
-
+  
       {/* ÁREA DO JOGO */}
       <View style={{ width: '100%', height: 120, overflow: 'hidden', marginVertical: 12 }}>
         <Animated.View
@@ -89,7 +87,7 @@ export default function EscapeGame({ theme, modoAprendiz }) {
             alignItems: 'center',
           }}
         >
-          <View style={[styles.character, { backgroundColor: theme.primary }]}>
+          <View style={[styles.character, { backgroundColor: theme.primary }]}> 
             <Text style={{ color: '#fff' }}>😅</Text>
           </View>
           <View style={[styles.character, { backgroundColor: '#444' }]}>

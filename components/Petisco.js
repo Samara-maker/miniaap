@@ -14,7 +14,6 @@ export default function PetiscosList({ theme, onAddToBill, modoAprendiz }) {
         FlatList: pressione + para adicionar à conta.
       </Text>
 
-      {/* 📚 EXPLICAÇÃO DIDÁTICA */}
       {modoAprendiz && (
         <View
           style={{
