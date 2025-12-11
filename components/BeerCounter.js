@@ -7,7 +7,7 @@ export default function BeerCounter({ theme, modoAprendiz }) {
   const [bgOpacity, setBgOpacity] = useState(0);
 
   /**
-   * 🧠 useEffecta
+   * 🧠 useEffect
    * Esse efeito é executado TODA VEZ que o estado "count" muda.
    * Aqui usamos ele para reagir ao aumento das cervejas
    * e escurecer gradualmente a tela.
